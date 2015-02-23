@@ -1,4 +1,4 @@
-<%= form_for(@response) do |f| %>
+<%= form_for @response do |f| %>
   <% if @response.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@response.errors.count, "error") %> prohibited this response from being saved:</h2>
@@ -11,84 +11,83 @@
     </div>
   <% end %>
 
-  <div>
-    <%= f.label :site, "Your site" %>
-    <%= f.select :site, Response::SITES, {include_blank: 'Select'} %>
+  <div class='form-group'>
+    <%= f.label :site, "Your site", { class: 'control-label' } %>
+    <%= f.select :site, Response::SITES, {class: 'form-control', include_blank: 'Select'} %>
   </div>
-  <div>
-    <%= f.label :responder, "Your name" %>
-    <%= f.text_field :responder %>
+  <div class='form-group'>
+    <%= f.label :responder, "Your name", { class: 'control-label' } %>
+    <%= f.text_field :responder, { class: 'form-control' } %>
   </div>
 
+  <div class='form-group'>
+    <%= f.label :acs_single_build, "1. Would you like to build your own Census Demog file? Or would you prefer to share a single build across site?", { class: 'control-label' } %>
+    <%= f.select :acs_single_build, ['Build my own', 'Share a build'], { class: 'form-control', include_blank: 'Select'} %><br />
+    <%= f.label :acs_single_build_comment, "Comments", { class: 'control-label' } %>
+    <%= f.text_area :acs_single_build_comment, { class: 'form-control' } %>
+  </div>
+  <div class='form-group'>
+    <%= f.label :acs_build_volunteer, "2. Would you be interested in writing or maintaining the code that creates this file?", { class: 'control-label' } %>
+    <%= f.select :acs_build_volunteer, ["Yes, I'm interested", "No, I'd rather not"], {class: 'form-control', include_blank: 'Select'} %><br />
+    <%= f.label :acs_build_volunteer_comment, "Comments", { class: 'control-label' } %>
+    <%= f.text_area :acs_build_volunteer_comment, { class: 'form-control' } %>
+  </div>
+  <div class='form-group'>
+    <%= f.label :acs_qa_volunteer, "3. Would you be willing to write a QA program to test someone else's ACS build?", { class: 'control-label' } %>
+    <%= f.select :acs_qa_volunteer, ["Yes, I'm willing", "No, I'd rather not"], {class: 'form-control', include_blank: 'Select'} %><br />
+    <%= f.label :acs_qa_volunteer_comment, "Comments", { class: 'control-label' } %>
+    <%= f.text_area :acs_qa_volunteer_comment, { class: 'form-control' } %>
+  </div>
+  <div class='form-group'>
+    <%= f.label :acs_multiple_files, "4. Would you like to see a Census Demog structure with a single file containing all geocoded levels, or multiple files, each containing a single geocoded level?", { class: 'control-label' } %>
+    <%= f.select :acs_multiple_files, ['Single', 'Multiple'], {class: 'form-control', include_blank: 'Select'} %><br />
+    <%= f.label :acs_multiple_files_comment, "Comments", { class: 'control-label' } %>
+    <%= f.text_area :acs_multiple_files_comment, { class: 'form-control' } %>
+  </div>
+  <div class='form-group'>
+    <%= f.label :acs_annual_files, "5. Should we use a single year of ACS data to produce Census Demog, or should we use all available years of ACS data and expand the file with each release?", { class: 'control-label' } %>
+    <%= f.select :acs_annual_files, ['Single year', 'All years'], {class: 'form-control', include_blank: 'Select'} %><br />
+    <%= f.label :acs_annual_files_comment, "Comments", { class: 'control-label' } %>
+    <%= f.text_area :acs_annual_files_comment, { class: 'form-control' } %>
+  </div>
+  <div class='form-group'>
+    <%= f.label :acs_block_group, "6. The ACS 5-year data only captures block groups for larger areas. Would you prefer to include these block groups, or use census tract as the smallest level of aggregation?", { class: 'control-label' } %>
+    <%= f.select :acs_block_group, ['Block group', 'Census tract'], {class: 'form-control', include_blank: 'Select'} %><br />
+    <%= f.label :acs_block_group_comment, "Comments", { class: 'control-label' } %>
+    <%= f.text_area :acs_block_group_comment, { class: 'form-control' } %>
+  </div>
+  <div class='form-group'>
+    <%= f.label :census_needed, "7. Race and housing stock are the only variables taken from decennial Census data. Do we want to use decennial census data at all, or does the ACS meet our needs?", { class: 'control-label' } %>
+    <%= f.select :census_needed, ["Include decennial Census", "ACS has all we need"], {class: 'form-control', include_blank: 'Select'} %><br />
+    <%= f.label :census_needed_comment, "Comments", { class: 'control-label' } %>
+    <%= f.text_area :census_needed_comment, { class: 'form-control' } %>
+  </div>
+  <div class='form-group'>
+    <%= f.label :census_historical, "8. Is your site able to geocode patients you've seen in the past (i.e., do you geocode historical data)?", { class: 'control-label' } %>
+    <%= f.select :census_historical, ["Yes, we have history", "No, we don't have historical data"], {class: 'form-control', include_blank: 'Select'} %><br />
+    <%= f.label :census_historical_comment, "Comments", { class: 'control-label' } %>
+    <%= f.text_area :census_historical_comment, { class: 'form-control' } %>
+  </div>
+  <div class='form-group'>
+    <%= f.label :census_future_history, "9. Is your site planning to update patient geocodes and store that information in the future (i.e., will you have historical data going forward)?", { class: 'control-label' } %>
+    <%= f.select :census_future_history, ["Yes, we can save historical data", "No, we won't be able to save historical data"], {class: 'form-control', include_blank: 'Select'} %><br />
+    <%= f.label :census_future_history_comment, "Comments", { class: 'control-label' } %>
+    <%= f.text_area :census_future_history_comment, { class: 'form-control' } %>
+  </div>
 
-  <div>
-    <ol>
-      <li>
-        <%= f.label :census_boundary, "Census boundary question?" %>
-        <%= f.text_area :census_boundary %>
-      </li>
-      <li>
-        <%= f.label :acs_single_build, "Would you like to build your own Census Demog file? Or would you prefer to share a single build across site?" %>
-        <%= f.select :acs_single_build, ['Build my own', 'Share a build'], {include_blank: 'Select'} %><br />
-        <%= f.label :acs_single_build_comment, "Comments" %>
-        <%= f.text_area :acs_single_build_comment %>
-      </li>
-      <li>
-        <%= f.label :acs_build_volunteer, "Would you be interested in creating this file?" %>
-        <%= f.select :acs_build_volunteer, ["Yes, I'm interested", "No, I'd rather not"], {include_blank: 'Select'} %><br />
-        <%= f.label :acs_build_volunteer_comment, "Comments" %>
-        <%= f.text_area :acs_build_volunteer_comment %>
-      </li>
-      <li>
-        <%= f.label :acs_qa_volunteer, "Would you be willing to perform QA on this build?" %>
-        <%= f.select :acs_qa_volunteer, ["Yes, I'm willing", "No, I'd rather not"], {include_blank: 'Select'} %><br />
-        <%= f.label :acs_qa_volunteer_comment, "Comments" %>
-        <%= f.text_area :acs_qa_volunteer_comment %>
-      </li>
-      <li>
-        <%= f.label :acs_multiple_files, "Should we create a single file containing all geocoded levels, or multiple files, each containing a single geocoded level?" %>
-        <%= f.select :acs_multiple_files, ['Single', 'Multiple'], {include_blank: 'Select'} %><br />
-        <%= f.label :acs_multiple_files_comment, "Comments" %>
-        <%= f.text_area :acs_multiple_files_comment %>
-      </li>
-      <li>
-        <%= f.label :acs_annual_files, "Should we use a single year of ACS data to produce Census Demog or should we use all available years of ACS data?" %>
-        <%= f.select :acs_annual_files, ['Single year', 'All years'], {include_blank: 'Select'} %><br />
-        <%= f.label :acs_annual_files_comment, "Comments" %>
-        <%= f.text_area :acs_annual_files_comment %>
-      </li>
-      <li>
-        <%= f.label :acs_block_group, "The ACS 5-year data only captures block groups for larger areas. Should we include these block groups, or use census tract as the smallest level of [aggregation]?" %>
-        <%= f.select :acs_block_group, ['Block group', 'Census tract'], {include_blank: 'Select'} %><br />
-        <%= f.label :acs_block_group_comment, "Comments" %>
-        <%= f.text_area :acs_block_group_comment %>
-      </li>
-      <li>
-        <%= f.label :census_needed, "Only race and a few housing stock variables are taken from decennial Census data. Do we want to use decennial census data at all?" %>
-        <%= f.select :census_needed, ["Yes, let's use it", "No, we don't need it"], {include_blank: 'Select'} %><br />
-        <%= f.label :census_needed_comment, "Comments" %>
-        <%= f.text_area :census_needed_comment %>
-      </li>
-      <li>
-        <%= f.label :census_historical, "Is your site able to geocode patients you've seen in the past (i.e., geocode historical data)?" %>
-        <%= f.select :census_historical, ["Yes, we have history", "No, we don't have historical data"], {include_blank: 'Select'} %><br />
-        <%= f.label :census_historical_comment, "Comments" %>
-        <%= f.text_area :census_historical_comment %>
-      </li>
-      <li>
-        <%= f.label :census_future_history, "Is your site planning to update patient geocodes and store that historical information (i.e., will you have historical data moving forward)?" %>
-        <%= f.select :census_future_history, ["Yes, we can save historical data", "No, we won't be able to save historical data"], {include_blank: 'Select'} %><br />
-        <%= f.label :census_future_history_comment, "Comments" %>
-        <%= f.text_area :census_future_history_comment %>
-      </li>
-      <li>
-        <%= f.label :general_comments, "Other comments?" %>
-        <%= f.text_area :general_comments %>
-      </li>
-    </ol>
+  <div class='form-group'>
+    <%= f.label :census_boundary, "10. Some changes are made to geocoding shape files each year, but much larger changes are made on decennial census years. What concerns do you have about keeping data comparable across boundaries such as these?", { class: 'control-label' } %>
+    <%= f.text_area :census_boundary, { class: 'form-control' } %>
+  </div>
+
+  <div class='form-group'>
+    <%= f.label :general_comments, "11. Other comments?", { class: 'control-label' } %>
+    <%= f.text_area :general_comments, { class: 'form-control' } %>
   </div>
 
   <div class="actions">
     <%= f.submit "Save Survey" %>
   </div>
 <% end %>
+
+<div>&nbsp;</div>

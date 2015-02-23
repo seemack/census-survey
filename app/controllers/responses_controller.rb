@@ -31,7 +31,7 @@ class ResponsesController < ApplicationController
 
     respond_to do |format|
       if @response.save
-        format.html { redirect_to @response, notice: 'Response was successfully created.' }
+        format.html { redirect_to thanks_path, notice: 'Your response was successfully saved.' }
         format.json { render :show, status: :created, location: @response }
       else
         format.html { render :new }
@@ -72,6 +72,6 @@ class ResponsesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def response_params
-      params[:response]
+      params[:response].permit(:site, :responder, :census_boundary, :acs_single_build, :acs_single_build_comment, :acs_build_volunteer, :acs_build_volunteer_comment, :acs_qa_volunteer, :acs_qa_volunteer_comment, :acs_multiple_files, :acs_multiple_files_comment, :acs_annual_files, :acs_annual_files_comment, :acs_block_group, :acs_block_group_comment, :census_needed, :census_needed_comment, :census_historical, :census_historical_comment, :census_future_history, :census_future_history_comment, :general_comments)
     end
 end

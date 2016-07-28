@@ -69,6 +69,16 @@ a {
   padding-top: 40px;
 }
 
+.form-group {
+  border: 1px solid $charcoal;
+  padding: 10px;
+}
+
+.form-group-header {
+  margin-top: 30px;
+  margin-bottom: 5px;
+}
+
 #name-select {
   margin-bottom: 25px;
 }

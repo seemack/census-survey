@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :responses
 
   get 'thanks' => "responses#thanks"
+  get 'export' => 'responses#export'
 
   root 'responses#new'
 

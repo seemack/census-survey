@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -17,23 +16,45 @@ ActiveRecord::Schema.define(version: 20150220230754) do
   enable_extension "plpgsql"
 
   create_table "responses", force: :cascade do |t|
-    t.string   "site",                   null: false
-    t.string   "responder",              null: false
-    t.string   "keep_location"
-    t.string   "keep_location_years"
-    t.string   "keep_location_able"
-    t.text     "keep_location_comment"
-    t.string   "keep_demog"
-    t.string   "keep_demog_years"
-    t.string   "keep_demog_able"
-    t.text     "keep_demog_comment"
-    t.string   "keep_shapefile"
-    t.string   "keep_shapefile_years"
-    t.string   "keep_shapefile_able"
-    t.text     "keep_shapefile_comment"
-    t.text     "general_comments"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "site"
+    t.string   "responder"
+    t.string   "role"
+    t.string   "role_other"
+    t.string   "geo_own"
+    t.string   "geo_freq"
+    t.string   "geo_burden"
+    t.string   "geo_time"
+    t.text     "geo_comment"
+    t.boolean  "limit_control"
+    t.boolean  "limit_cost"
+    t.boolean  "limit_progtime"
+    t.boolean  "limit_staff"
+    t.boolean  "limit_timely"
+    t.boolean  "limit_space"
+    t.boolean  "limit_technical"
+    t.boolean  "limit_uncodeable"
+    t.boolean  "limit_proctime"
+    t.text     "limit_comment"
+    t.integer  "imp_simple_produce"
+    t.integer  "imp_ses"
+    t.integer  "imp_time_produce"
+    t.integer  "imp_simple_use"
+    t.integer  "imp_latlong"
+    t.integer  "imp_time_use"
+    t.integer  "imp_race"
+    t.integer  "imp_historical"
+    t.integer  "imp_housing"
+    t.integer  "imp_timely"
+    t.integer  "imp_moe"
+    t.text     "imp_comment"
+    t.string   "use_block"
+    t.string   "use_blockgroup"
+    t.string   "use_tract"
+    t.string   "use_zcta"
+    t.text     "use_comment"
+    t.text     "general_comment"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
 
 end

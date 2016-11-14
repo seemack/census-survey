@@ -12,56 +12,169 @@
   <% end %>
 
   <div class='form-group'>
-    <%= f.label :site, "Your site", { class: 'control-label' } %>
-    <%= f.select :site, Response::SITES, {class: 'form-control', include_blank: 'Select'} %>
-  </div>
-  <div class='form-group'>
-    <%= f.label :responder, "Your name", { class: 'control-label' } %>
-    <%= f.text_field :responder, { class: 'form-control' } %>
-  </div>
-
-  <div class='form-group-header'> Census Location: Addresses </div>
-  <div class='form-group'>
-    <%= f.label :keep_location, "1. Are you currently keeping historical location data (possible multiple addresses per person) in Census Location?", { class: 'control-label' } %>
-    <%= f.label :keep_location, "Or do you have a single location for each person?", { class: 'control-label' } %>
-    <%= f.select :keep_location, ['Historical', 'Single location'], { class: 'form-control', include_blank: 'Select'} %><br />
-    <%= f.label :keep_location_years, "2. For what years do you have Census Location records for your population?", { class: 'control-label' } %>
-    <%= f.text_field :keep_location_years, { class: 'form-control' } %><br />
-    <%= f.label :keep_location_able, "3. <em>If single location</em>, would you be able to track changes in address in future files?".html_safe, { class: 'control-label' } %>
-    <%= f.select :keep_location_able, Response::ABLE, { class: 'form-control', include_blank: 'Select' } %><br />
-    <%= f.label :keep_location_comment, "4. Comments or concerns", { class: 'control-label' } %>
-    <%= f.text_area :keep_location_comment, { class: 'form-control' } %>
+    <%= f.label :site, 'Your site' %>
+    <%= f.select :site, Response::SITES, {class: 'form-control', include_blank: 'Select' } %><br />
+    <%= f.label :responder, 'Your name' %>
+    <%= f.text_field :responder, { class: 'form-control' } %><br />
+    <%= f.label :role, 'Your role at your site' %>
+    <%= f.select :role, Response::ROLES, {class: 'form-control', include_blank: 'Select' } %><br />
+    <%= f.label :role_other, '(If other)' %>
+    <%= f.text_field :role_other, { class: 'form-control' } %>
   </div>
 
-  <div class='form-group-header'> Census Location: Shapefiles </div>
+  <div class='form-group-header'>1. Your geocoding process</div>
   <div class='form-group'>
-    <%= f.label :keep_shapefile, "5. Are you currently keeping the results of a single year's geocoding (using a single shapefile)?", { class: 'control-label' } %>
-    <%= f.label :keep_shapefile, "Or do you keep the multiple geocodes produced by multiple years' shapefiles?", { class: 'control-label' } %>
-    <%= f.select :keep_shapefile, ['Single shapefile', 'Multiple shapefiles'], { class: 'form-control', include_blank: 'Select'} %><br />
-    <%= f.label :keep_shapefile_years, "6. What year or years shapefiles were used to build your current Census Location file?", { class: 'control-label' } %>
-    <%= f.text_field :keep_shapefile_years, { class: 'form-control' } %><br />
-    <%= f.label :keep_shapefile_able, "7. <em>If a single year</em>, would you be able to include multiple geocodes from multiple years' shapefiles in future files?".html_safe, { class: 'control-label' } %>
-    <%= f.select :keep_shapefile_able, Response::ABLE, { class: 'form-control', include_blank: 'Select' } %><br />
-    <%= f.label :keep_shapefile_comment, "8. Comments or concerns?", { class: 'control-label' } %>
-    <%= f.text_area :keep_shapefile_comment, { class: 'form-control' } %>
+    <%= f.label :geo_own, "a. Do you do your own geocoding?", class: 'control-label', 'aria-describedby': 'helpGeoOwn' %>
+    <%= f.select :geo_own, Response::GEO, class: 'form-control', include_blank: 'Select' %>
+    <span id='helpGeoOwn' class='help-block'>&ldquo;In-house&rdquo; suggests that you have contact and influence with your geocoding team.</span>
+    <%= f.label :geo_freq, "b. How often do you update Census Location?", class: 'control-label' %>
+    <%= f.select :geo_freq, Response::GEOFREQ, class: 'form-control', include_blank: 'Select' %><br />
+    <%= f.label :geo_time, "c. How long does it to perform the geocoding?", class: 'control-label' %>
+    <%= f.select :geo_time, Response::LONG, class: 'form-control', include_blank: 'Select' %><br />
+    <%= f.label :geo_burden, "d. How much of a burden is geocoding?", class: 'control-label', 'aria-describedby': 'helpGeoBurden' %>
+    <%= f.select :geo_burden, Response::BURDEN, class: 'form-control', include_blank: 'Select' %>
+    <span id='helpGeoBurden' class='help-block'>Please measure your gut reaction for this one.</span>
+    <%= f.label :geo_comment, "Comments or concerns", class: 'control-label' %>
+    <%= f.text_area :geo_comment, class: 'form-control' %>
   </div>
 
-  <div class='form-group-header'> Census Demographics </div>
+  <div class='form-group-header'>2. Limitations to geocoding (select all that apply)</div>
   <div class='form-group'>
-    <%= f.label :keep_demog, "9. Are you currently keeping a single year's ACS data in Census Demographics?", { class: 'control-label' } %>
-    <%= f.label :keep_demog, "Or do you have multiple years (historical) data?", { class: 'control-label' } %>
-    <%= f.select :keep_demog, ['Single year', 'Multiple years'], { class: 'form-control', include_blank: 'Select'} %><br />
-    <%= f.label :keep_demog_years, "10. What year or years are included in your Census Demographics file?", { class: 'control-label' } %>
-    <%= f.text_field :keep_demog_years, { class: 'form-control' } %><br />
-    <%= f.label :keep_demog_able, "11. <em>If single year</em>, would you be able to include demographic data for multiple years in future files?".html_safe, { class: 'control-label' } %>
-    <%= f.select :keep_demog_able, Response::ABLE, { class: 'form-control', include_blank: 'Select' } %><br />
-    <%= f.label :keep_demog_comment, "12. Comments or concerns?", { class: 'control-label' } %>
-    <%= f.text_area :keep_demog_comment, { class: 'form-control' } %>
- </div>
+    <div class='checkbox'>
+      <label>
+        <%= f.check_box :limit_control %>
+        a. Don't control the geocoding process
+      </label>
+    </div>
+    <div class='checkbox'>
+      <label>
+        <%= f.check_box :limit_cost %>
+        b. Geocoding is expensive for our site
+      </label>
+    </div>
+    <div class='checkbox'>
+      <label>
+        <%= f.check_box :limit_progtime %>
+        c. Geocoding takes a lot of programming time
+      </label>
+    </div>
+    <div class='checkbox'>
+      <label>
+        <%= f.check_box :limit_staff %>
+        d. We are not adequately staffed to do our best geocoding
+      </label>
+    </div>
+    <div class='checkbox'>
+      <label>
+        <%= f.check_box :limit_timely %>
+        e. We have difficulty keeping our geocoding up to date
+      </label>
+    </div>
+    <div class='checkbox'>
+      <label>
+        <%= f.check_box :limit_space %>
+        f. Keeping full historical data takes up too much space
+      </label>
+    </div>
+    <div class='checkbox'>
+      <label>
+        <%= f.check_box :limit_technical %>
+        g. We do not have adequate technical ability to do our best geocoding
+      </label>
+    </div>
+    <div class='checkbox'>
+      <label>
+        <%= f.check_box :limit_uncodeable %>
+        h. We have some populations we just cannot geocode
+      </label>
+    </div>
+    <div class='checkbox'>
+      <label>
+        <%= f.check_box :limit_proctime %>
+        i. Geocoding takes a lot of processing time
+      </label>
+    </div>
+    <div class='text'>
+      <%= f.label :limit_comment, "Comments or concerns", { class: 'control-label' } %>
+      <%= f.text_area :limit_comment, { class: 'form-control' } %>
+    </div>
+  </div>
 
+  <div class='form-group-header'>3. What are the most important functions of the Census area (1=Essential, 5=Don't need it)</div>
   <div class='form-group'>
-    <%= f.label :general_comments, "13. Do you have any other comments, concerns or possible obstancles that weren't covered by the above questions?", { class: 'control-label' } %>
-    <%= f.text_area :general_comments, { class: 'form-control' } %>
+
+    <%= f.label :imp_simple_produce, "a. Simple to produce", class: 'control-label' %>
+    <%= f.select :imp_simple_produce, Response::ONEFIVE, class: 'form-control', include_blank: 'Select', 'aria-describedby': 'helpImpSimpleProduce' %>
+    <span id='helpImpSimpleProduce' class='help-block'>Simple program; requires little coding time.</span>
+
+    <%= f.label :imp_ses, "b. Has SES data", class: 'control-label' %>
+    <%= f.select :imp_ses, Response::ONEFIVE, class: 'form-control', include_blank: 'Select', 'aria-describedby': 'helpImpSes' %>
+    <span id='helpImpSes' class='help-block'>Various proxies for socioeconomic status: income, education, literacy, etc.</span>
+
+    <%= f.label :imp_time_produce, "c. Quick to produce", class: 'control-label' %>
+    <%= f.select :imp_time_produce, Response::ONEFIVE, class: 'form-control', include_blank: 'Select', 'aria-describedby': 'helpImpTimeProduce' %>
+    <span id='helpImpSimpleProduce' class='help-block'>Shorter runtime; does not exceed computing resources.</span>
+
+    <%= f.label :imp_simple_use, "d. Simple to use", class: 'control-label' %>
+    <%= f.select :imp_simple_use, Response::ONEFIVE, class: 'form-control', include_blank: 'Select', 'aria-describedby': 'helpImpSimpleUse' %>
+    <span id='helpImpSimpleUse' class='help-block'>Requires little explanation, little manipulation and few joins to use.</span>
+
+    <%= f.label :imp_latlong, "e. Has location data", class: 'control-label' %>
+    <%= f.select :imp_latlong, Response::ONEFIVE, class: 'form-control', include_blank: 'Select', 'aria-describedby': 'helpImpLatLong' %>
+    <span id='helpImpLatLong' class='help-block'>Latitude &amp; longitude; FIPS geocode.</span>
+
+    <%= f.label :imp_time_use, "f. Quick to use", class: 'control-label'  %>
+    <%= f.select :imp_time_use, Response::ONEFIVE, class: 'form-control', include_blank: 'Select', 'aria-describedby': 'helpImpTimeUse' %>
+    <span id='helpImpTimeUse' class='help-block'>Shorter runtime for end users.</span>
+
+    <%= f.label :imp_race, "g. Has race data", class: 'control-label'  %>
+    <%= f.select :imp_race, Response::ONEFIVE, class: 'form-control', include_blank: 'Select', 'aria-describedby': 'helpImpRace' %>
+    <span id='helpImpRace' class='help-block'>From the decennial Census.</span>
+
+    <%= f.label :imp_historical, "h. Has historical information", class: 'control-label'  %>
+    <%= f.select :imp_historical, Response::ONEFIVE, class: 'form-control', include_blank: 'Select', 'aria-describedby': 'helpImpHistorical' %>
+    <span id='helpImpHistorical' class='help-block'>Can access ACS data from specific years in the past.</span>
+
+    <%= f.label :imp_housing, "i. Has housing stock data", class: 'control-label'  %>
+    <%= f.select :imp_housing, Response::ONEFIVE, class: 'form-control', include_blank: 'Select', 'aria-describedby': 'helpImpHousing' %>
+    <span id='helpImpHousing' class='help-block'>Total houses, houses owned, houses rented, etc., from decennial Census.</span>
+
+    <%= f.label :imp_moe, "j. Has margin of error estimates", class: 'control-label'  %>
+    <%= f.select :imp_moe, Response::ONEFIVE, class: 'form-control', include_blank: 'Select', 'aria-describedby': 'helpImpMoe' %>
+    <span id='helpImpMoe' class='help-block'>Because these aren't individual-level covariates, the MOE/CV should be modeled explicitly.</span>
+
+    <%= f.label :imp_timely, "i. Has up-to-date data", class: 'control-label' %>
+    <%= f.select :imp_timely, Response::ONEFIVE, class: 'form-control', include_blank: 'Select', 'aria-describedby': 'helpImpTimely' %>
+    <span id='helpImpTimely' class='help-block'>Most recent ACS data is available.</span>
+
+    <%= f.text_area :imp_comment, class: 'form-control' %>
+  </div>
+
+  <div class='form-group-header'>4. How often do you use data at these geographic units?</div>
+  <div class='form-group'>
+    <%= f.label :use_block, "a. Census block", class: 'control-label' %>
+    <%= f.select :use_block, Response::UNITFREQ, class: 'form-control', include_blank: 'Select', 'aria-describedby': 'helpUseBlock' %>
+    <span id='helpUseBlock' class='help-block'>Housing stock and race variables available from the decennial census.</span>
+
+    <%= f.label :use_blockgroup, "b. Census block group", class: 'control-label' %>
+    <%= f.select :use_blockgroup, Response::UNITFREQ, class: 'form-control', include_blank: 'Select', 'aria-describedby': 'helpUseBlockgroup' %>
+    <span id='helpUseBlockgroup' class='help-block'>ACS data; block groups with small populations are not available.</span>
+
+    <%= f.label :use_tract, "c. Census tract", class: 'control-label' %>
+    <%= f.select :use_tract, Response::UNITFREQ, class: 'form-control', include_blank: 'Select', 'aria-describedby': 'helpUseTract' %>
+    <span id='helpUseTract' class='help-block'>Lowest level of granularity for complete ACS data.</span>
+
+    <%= f.label :use_zcta, "d. ZIP code/ZCTA", class: 'control-label' %>
+    <%= f.select :use_zcta, Response::UNITFREQ, class: 'form-control', include_blank: 'Select', 'aria-describedby': 'helpUseZCTA' %>
+    <span id='helpUseZCTA' class='help-block'>Not currently in the specs; perhaps unnecessary given more granular geocoding.</span>
+
+    <%= f.label :use_comment, "Comments or concerns", class: 'control-label' %>
+    <%= f.text_area :use_comment, class: 'form-control' %>
+  </div>
+
+  <div class='form-group-header'>5. Do you have any other comments, concerns or possible obstacles that weren't covered by the above questions?</div>
+  <div class='form-group'>
+    <%= f.text_area :general_comment, class: 'form-control' %>
   </div>
 
   <div class="actions">

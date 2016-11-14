@@ -20,15 +20,7 @@ body {
 
 #header {
   background-color: $main-color;
-  color: #FFF;
-  padding: 4px 100px;
-  border-bottom: solid 5px darken($main-color, 10%);
-
-  h1 {
-    font-family: "Special Elite";
-    font-size: 36px;
-    font-weight: bolder;
-  }
+  padding: 10px 80px;
 }
 
 #main-text {
@@ -103,6 +95,10 @@ a {
 
 input[type="checkbox"] {
   margin-right: 15px;
+}
+
+select {
+  width: 100%;
 }
 
 table td {

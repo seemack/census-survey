@@ -64,6 +64,18 @@ class ResponsesController < ApplicationController
     end
   end
 
+  def export
+    response_csv = CSV.generate do |csv|
+      csv << Response.attribute_names
+      Response.order(:created_at).each do |r|
+        csv << r.attributes.values
+      end
+    end
+    respond_to do |format|
+      format.csv { send_data response_csv }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_response
@@ -72,6 +84,6 @@ class ResponsesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def response_params
-      params[:response].permit(:site, :responder, :census_boundary, :acs_single_build, :acs_single_build_comment, :acs_build_volunteer, :acs_build_volunteer_comment, :acs_qa_volunteer, :acs_qa_volunteer_comment, :acs_multiple_files, :acs_multiple_files_comment, :acs_annual_files, :acs_annual_files_comment, :acs_block_group, :acs_block_group_comment, :census_needed, :census_needed_comment, :census_historical, :census_historical_comment, :census_future_history, :census_future_history_comment, :general_comments)
+      params[:response].permit(:site, :responder, :geo_own, :geo_freq, :geo_burden, :geo_time, :geo_comment, :limit_control, :limit_cost, :limit_progtime, :limit_staff, :limit_timely, :limit_space, :limit_technical, :limit_uncodeable, :limit_proctime, :limit_comment, :imp_simple_produce, :imp_time_produce, :imp_simple_use, :imp_time_use, :imp_historical, :imp_timely, :imp_comment, :use_block, :use_blockgroup, :use_tract, :use_zcta, :use_comment, :general_comment, :created_at, :updated_at, :imp_geocode, :imp_latlong, :role, :role_other, :imp_housing, :imp_moe, :imp_ses, :imp_race)
     end
 end
